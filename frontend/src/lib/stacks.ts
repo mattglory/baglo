@@ -17,16 +17,26 @@ import {
 import { STACKS_MAINNET, STACKS_TESTNET } from "@stacks/network";
 
 // ============================================================
-// CONFIG - Change these after deploying contracts
+// NETWORK CONFIG
 // ============================================================
 
 const IS_MAINNET = false;
 const network = IS_MAINNET ? STACKS_MAINNET : STACKS_TESTNET;
 
+// Deployed testnet contracts (Feb 25, 2026)
+// Deployer: ST1T5B2J6JA3WTANYTSCTG0D45W760XF769XC1M13
 export const CORE_CONTRACT = {
   address: "ST1T5B2J6JA3WTANYTSCTG0D45W760XF769XC1M13",
   name: "baglo-core",
 };
+
+// ============================================================
+// SUPPORTED TOKENS
+//
+// Testnet:  uses our mock-usdcx (same SIP-010 interface as real USDCx)
+// Mainnet:  real USDCx → SP120SBRBQJ00MCWS7TM5R8WJNTTKD5K0HFRC2CNE.usdcx
+// Official testnet USDCx → ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.usdcx
+// ============================================================
 
 export const SUPPORTED_TOKENS: Record<string, {
   address: string;
@@ -35,17 +45,10 @@ export const SUPPORTED_TOKENS: Record<string, {
   decimals: number;
 }> = {
   USDCx: {
-    address: CORE_CONTRACT.address,
+    address: CORE_CONTRACT.address,   // testnet mock; swap to SP120...usdcx on mainnet
     name: "mock-usdcx",
-    symbol: "mUSDCx",
+    symbol: "USDCx",
     decimals: 6,
-  },
-  sBTC: {
-    // TODO: update to mainnet sBTC address when going live
-    address: "ST1F7QA2MDF17S807EPA36TSS8AMEFY4KA9TVGWXT",
-    name: "sbtc-token",
-    symbol: "sBTC",
-    decimals: 8,
   },
 };
 
@@ -101,6 +104,11 @@ export function isValidStacksAddress(address: string): boolean {
 // CONTRACT CALLS
 // ============================================================
 
+/**
+ * create-deposit: user signs on-chain order for fiat→crypto.
+ * fiatAmount = NGN amount user will pay (e.g. 16000)
+ * tokenAmount = USDCx micro-units they expect to receive (e.g. 9970000 = 9.97 USDCx)
+ */
 export function createDeposit(params: {
   fiatCurrency: string;
   fiatAmount: number;
@@ -227,18 +235,16 @@ export async function getUserLatestOrder(address: string): Promise<number | null
 
 /**
  * Poll Hiro API until a transaction is confirmed (anchored).
- * Resolves with the order ID from the chain.
- * TODO: Verify /extended/v1/tx/ still works after Hiro API deprecation (March 9, 2026)
+ * Note: /extended/v1/tx/ — verify compatibility after Hiro API updates.
  */
 export async function waitForTxAndGetOrderId(
   txId: string,
   userAddress: string,
   timeoutMs = 300_000
 ): Promise<number> {
-  const apiBase =
-    IS_MAINNET
-      ? "https://api.hiro.so"
-      : "https://api.testnet.hiro.so";
+  const apiBase = IS_MAINNET
+    ? "https://api.hiro.so"
+    : "https://api.testnet.hiro.so";
   const deadline = Date.now() + timeoutMs;
 
   while (Date.now() < deadline) {
@@ -251,7 +257,10 @@ export async function waitForTxAndGetOrderId(
           const orderId = await getUserLatestOrder(userAddress);
           if (orderId !== null) return orderId;
         }
-        if (data.tx_status === "abort_by_response" || data.tx_status === "abort_by_post_condition") {
+        if (
+          data.tx_status === "abort_by_response" ||
+          data.tx_status === "abort_by_post_condition"
+        ) {
           throw new Error(`Transaction failed on-chain: ${data.tx_status}`);
         }
       }

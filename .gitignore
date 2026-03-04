@@ -1,6 +1,10 @@
 **/settings/Mainnet.toml
 **/settings/Testnet.toml
+**/settings/Devnet.toml
 .cache/**
+
+# Claude plugin auto-generated knowledge files (dev tool, not source code)
+.claude/stacks/
 history.txt
 
 logs
@@ -11,14 +15,21 @@ coverage
 costs-reports.json
 node_modules
 
-# Environment
+# Environment — never commit real secrets
 .env
 .env.local
+.env.production
+.env.staging
 
 # Build outputs
 backend/dist
 frontend/.next
 frontend/out
+frontend/tsconfig.tsbuildinfo
+*.tsbuildinfo
 
 # IDE
 .vscode/settings.json
+
+# Claude local settings (machine-specific permissions, not for sharing)
+.claude/settings.local.json
