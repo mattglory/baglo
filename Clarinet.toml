@@ -1,0 +1,22 @@
+[project]
+name = "baglo"
+description = "Decentralized remittance and exchange on Stacks"
+authors = ["Glory"]
+telemetry = false
+cache_dir = "./.cache"
+requirements = []
+
+[contracts.sip010-ft-trait]
+path = "contracts/sip010-ft-trait.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.mock-usdcx]
+path = "contracts/mock-usdcx.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.baglo-core]
+path = "contracts/baglo-core.clar"
+clarity_version = 2
+epoch = 2.5

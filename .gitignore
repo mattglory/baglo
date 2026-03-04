@@ -1,0 +1,24 @@
+**/settings/Mainnet.toml
+**/settings/Testnet.toml
+.cache/**
+history.txt
+
+logs
+*.log
+npm-debug.log*
+coverage
+*.info
+costs-reports.json
+node_modules
+
+# Environment
+.env
+.env.local
+
+# Build outputs
+backend/dist
+frontend/.next
+frontend/out
+
+# IDE
+.vscode/settings.json

@@ -1,0 +1,32 @@
+---
+id: 0
+name: Testnet deployment
+network: testnet
+stacks-node: "https://api.testnet.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoind.testnet.stacks.co:18332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: sip010-ft-trait
+            expected-sender: ST1T5B2J6JA3WTANYTSCTG0D45W760XF769XC1M13
+            cost: 5420
+            path: "contracts\\sip010-ft-trait.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: baglo-core
+            expected-sender: ST1T5B2J6JA3WTANYTSCTG0D45W760XF769XC1M13
+            cost: 103180
+            path: "contracts\\baglo-core.clar"
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: mock-usdcx
+            expected-sender: ST1T5B2J6JA3WTANYTSCTG0D45W760XF769XC1M13
+            cost: 17390
+            path: "contracts\\mock-usdcx.clar"
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.5"
