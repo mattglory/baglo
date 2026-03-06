@@ -3,8 +3,6 @@
 **/settings/Devnet.toml
 .cache/**
 
-# Claude plugin auto-generated knowledge files (dev tool, not source code)
-.claude/stacks/
 history.txt
 
 logs
@@ -29,7 +27,7 @@ frontend/tsconfig.tsbuildinfo
 *.tsbuildinfo
 
 # IDE
-.vscode/settings.json
+.vscode/
 
-# Claude local settings (machine-specific permissions, not for sharing)
-.claude/settings.local.json
+# Claude local settings and plugin files (machine-specific, not for sharing)
+.claude/
