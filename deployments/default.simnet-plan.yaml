@@ -65,16 +65,16 @@ plan:
         - emulated-contract-publish:
             contract-name: sip010-ft-trait
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/sip010-ft-trait.clar
+            path: "contracts\\sip010-ft-trait.clar"
             clarity-version: 2
         - emulated-contract-publish:
             contract-name: baglo-core
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/baglo-core.clar
+            path: "contracts\\baglo-core.clar"
             clarity-version: 2
         - emulated-contract-publish:
             contract-name: mock-usdcx
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/mock-usdcx.clar
+            path: "contracts\\mock-usdcx.clar"
             clarity-version: 2
       epoch: "2.5"
