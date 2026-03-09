@@ -7,6 +7,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Clarity v2](https://img.shields.io/badge/Clarity-v2-orange)](https://docs.stacks.co/clarity)
 
+**Live Demo**: [baglo-eight.vercel.app](https://baglo-eight.vercel.app) | **API**: [baglo.up.railway.app](https://baglo.up.railway.app) | **GitHub**: [github.com/mattglory/baglo](https://github.com/mattglory/baglo)
+
 Baglo makes cross-border crypto-to-fiat remittance trustless and cheap for Nigeria. Users deposit NGN via bank transfer and receive USDCx stablecoins on-chain, or lock USDCx to receive NGN to any Nigerian bank account — all with on-chain escrow and protocol fees of just 0.3%.
 
 ---
